@@ -7,11 +7,11 @@ class Play :
         self.numlist_user = []#내가 입력한 리스트
         
     def playGame(self, input, breaktime):
-        for round in range(len(self.numlist)):
+        for round in range(len(self.numlist)):#10~13줄은 라운드에 따라 리스트에 있는 숫자를 보여주는 단계 난이도에 따라 숫자 보여주는 간격이 달라서 breaktime이 난이도에 달라질것같아 변수로 넣음
             for k in range(round):
                 print(self.numlist[k])
                 time.sleep(breaktime)
-            for j in range(round):
+            for j in range(round):#입력단계 맞으면 계속 아니면 중지
                 input= input('숫자 입력:')
                 if self.numlist[j] == input :
                     self.numlist_user.append(input)
@@ -20,6 +20,6 @@ class Play :
                     realBreak = False
                     break
             if (realBreak == False) :
-                print("숫자가 틀려 시스템을 종료합니다.")
+                print("숫자가 틀려 게임을 종료합니다.")
                 break
                 
