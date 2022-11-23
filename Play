@@ -1,0 +1,25 @@
+import random,time
+
+class Play :
+    def __init__(self, number) :
+        self.number = number#생성자
+        self.numlist = random.choices(range(1,5), k=20)#랜덤난수 리스트
+        self.numlist_user = []#내가 입력한 리스트
+        
+    def playGame(self, input, breaktime):
+        for round in range(len(self.numlist)):
+            for k in range(round):
+                print(self.numlist[k])
+                time.sleep(breaktime)
+            for j in range(round):
+                input= input('숫자 입력:')
+                if self.numlist[j] == input :
+                    self.numlist_user.append(input)
+                    continue
+                else : 
+                    realBreak = False
+                    break
+            if (realBreak == False) :
+                print("숫자가 틀려 시스템을 종료합니다.")
+                break
+                
