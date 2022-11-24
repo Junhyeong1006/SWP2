@@ -15,8 +15,8 @@ class Play:
             self.numlist.append(self.number)
             for k in range(self.roundcnt): # 추후에 이 부분을 인터페이스와 연결하여 버튼에 이펙트를 제공하도록 함
                 print(self.numlist[k], end=' ') 
+                time.sleep(breaktime)
             print('')
-            time.sleep(breaktime)
             self.numlist_user.clear()
             for j in range(len(self.numlist)):
                 numinput = int(input('숫자 입력: ')) # 추후에 버튼 클릭과 연결하여 리스트에 추가하도록 함
@@ -33,5 +33,5 @@ class Play:
 
 
 play = Play()
-play.playGame(1)
+play.playGame(0.5)
 
