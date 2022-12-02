@@ -3,35 +3,43 @@ import random, time
 
 class Play:
     def __init__(self):
-        self.number = 0  # 랜덤난수 생성 - 사실 없어도 될듯
-        self.numlist = []  # 랜덤난수 저장 리스트 - 이건 꼭 필요
-        self.numlist_user = []  # 내가 입력한수 리스트 - 매번 초기화됨(굳이 생성자로 넣어야 하는지 모르겠음)
-        self.roundcnt = 1 # 라운드 숫자 - 사실 없어도 될듯
+        self.number = 0  # 생성자
+        self.numlist = []  # 랜덤난수 리스트
+        self.numlist_user = []  # 내가 입력한수 리스트
+        self.roundcnt = 1
+        self.counting = 0
 
-    def playGame(self, breaktime):
-        realBreak = True
-        while realBreak: # while문으로 변경하여서 틀릴때까지 라운드를 추가해가면서 계속 동작하도록 변경
+    def playGame(self):
+        self.realBreak = True
+        breaktime = 0.5
+        while self.realBreak:
+            if self.roundcnt % 3 == 0:
+                breaktime -= 0.1
             self.number = random.choices(range(1, 5), k=1)[0]
             self.numlist.append(self.number)
-            for k in range(self.roundcnt): # 추후에 이 부분을 인터페이스와 연결하여 버튼에 이펙트를 제공하도록 함
-                print(self.numlist[k], end=' ') 
+            for k in range(self.roundcnt):
+                print(self.numlist[k], end=' ')
                 time.sleep(breaktime)
             print('')
             self.numlist_user.clear()
-            for j in range(len(self.numlist)):
-                numinput = int(input('숫자 입력: ')) # 추후에 버튼 클릭과 연결하여 리스트에 추가하도록 함
-                self.numlist_user.append(numinput)
-                if self.numlist[j] == self.numlist_user[j]:
-                    continue
-                else:
-                    realBreak = False
-                    break
-            if not realBreak:
+            self.countingnum()
+            if not self.realBreak:
                 print("숫자가 틀려 게임을 종료합니다.")
             else:
                 self.roundcnt += 1
 
+    def countingnum(self, ):
+        for j in range(len(self.numlist)):
+            numinput = int(input('숫자 입력: '))
+            self.numlist_user.append(numinput)
+            if self.numlist[j] == self.numlist_user[j]:
+                continue
+            else:
+                self.realBreak = False
+                break
+
 
 play = Play()
-play.playGame(0.5)
+play.playGame()
+
 
