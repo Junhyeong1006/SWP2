@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
 import random, time
 
 
@@ -44,6 +44,7 @@ class Ui_Dialog(object):
         self.pushButton_2.setFont(font)
         self.pushButton_2.setStyleSheet("background-color:rgb(204, 242, 255);")
         self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_2.clicked.connect(lambda: self.countingnum(2))
 
         self.pushButton_3 = QtWidgets.QPushButton(Dialog) # s 버튼
         self.pushButton_3.setGeometry(QtCore.QRect(520, 430, 161, 161))
@@ -53,6 +54,7 @@ class Ui_Dialog(object):
         self.pushButton_3.setFont(font)
         self.pushButton_3.setStyleSheet("background-color:rgb(204, 242, 255);")
         self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_3.clicked.connect(lambda: self.countingnum(3))
 
         self.pushButton_4 = QtWidgets.QPushButton(Dialog) # y 버튼
         self.pushButton_4.setGeometry(QtCore.QRect(750, 430, 161, 161))
@@ -62,6 +64,7 @@ class Ui_Dialog(object):
         self.pushButton_4.setFont(font)
         self.pushButton_4.setStyleSheet("background-color:rgb(204, 242, 255);")
         self.pushButton_4.setObjectName("pushButton_4")
+        self.pushButton_4.clicked.connect(lambda: self.countingnum(4))
 
         self.label_2 = QtWidgets.QLabel(Dialog) # level:
         self.label_2.setGeometry(QtCore.QRect(70, 240, 81, 31))
@@ -90,12 +93,12 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "Level:"))
 
     def playGame(self):
-        breaktime = 0.5
+        breaktime = 500
         if self.roundcnt % 3 == 0:
-            breaktime -= 0.1
+            breaktime -= 100
         self.number = random.choices(range(1, 5), k=1)[0]
         self.numlist.append(self.number)
-        for k in range(self.roundcnt):
+        for k in range(len(self.numlist)):
             if self.numlist[k] == 1:
                 self.pushButton.setStyleSheet("background-color: #0067a3")
             elif self.numlist[k] == 2:
@@ -104,14 +107,14 @@ class Ui_Dialog(object):
                 self.pushButton_3.setStyleSheet("background-color: #0067a3")
             elif self.numlist[k] == 4:
                 self.pushButton_4.setStyleSheet("background-color: #0067a3")
-            time.sleep(breaktime)
-
-
-
-    def buttonconnect(self):
-        pass
+            QtTest.QTest.qWait(breaktime)
+            self.pushButton.setStyleSheet("background-color:rgb(204, 242, 255);")
+            self.pushButton_2.setStyleSheet("background-color:rgb(204, 242, 255);")
+            self.pushButton_3.setStyleSheet("background-color:rgb(204, 242, 255);")
+            self.pushButton_4.setStyleSheet("background-color:rgb(204, 242, 255);")
 
     def countingnum(self, key):
+        print(key)
         self.numlist_user.append(key)
         if self.numlist_user[self.counting] == self.numlist[self.counting]:
             self.counting += 1
@@ -123,7 +126,7 @@ class Ui_Dialog(object):
                 pass
         else:
             self.realBreak = False
-
+        self.playGame()
 
 
 if __name__ == "__main__":
