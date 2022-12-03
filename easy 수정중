@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
-import random, time
+import random
 
 
 class Ui_Dialog(object):
@@ -98,20 +98,29 @@ class Ui_Dialog(object):
             breaktime -= 100
         self.number = random.choices(range(1, 5), k=1)[0]
         self.numlist.append(self.number)
-        for k in range(len(self.numlist)):
-            if self.numlist[k] == 1:
-                self.pushButton.setStyleSheet("background-color: #0067a3")
-            elif self.numlist[k] == 2:
-                self.pushButton_2.setStyleSheet("background-color: #0067a3")
-            elif self.numlist[k] == 3:
-                self.pushButton_3.setStyleSheet("background-color: #0067a3")
-            elif self.numlist[k] == 4:
-                self.pushButton_4.setStyleSheet("background-color: #0067a3")
-            QtTest.QTest.qWait(breaktime)
-            self.pushButton.setStyleSheet("background-color:rgb(204, 242, 255);")
-            self.pushButton_2.setStyleSheet("background-color:rgb(204, 242, 255);")
-            self.pushButton_3.setStyleSheet("background-color:rgb(204, 242, 255);")
-            self.pushButton_4.setStyleSheet("background-color:rgb(204, 242, 255);")
+        self.lineEdit.setText(str(self.roundcnt))
+        if not self.realBreak:
+            print("GameOver")
+        else:
+            for k in range(len(self.numlist)):
+                if len(self.numlist) == 1:
+                    print(self.numlist[0])
+                if self.numlist[k] == 1:
+                    self.pushButton.setStyleSheet("background-color: #0067a3")
+                    QtTest.QTest.qWait(breaktime)
+                    self.pushButton.setStyleSheet("background-color:rgb(204, 242, 255);")
+                elif self.numlist[k] == 2:
+                    self.pushButton_2.setStyleSheet("background-color: #0067a3")
+                    QtTest.QTest.qWait(breaktime)
+                    self.pushButton_2.setStyleSheet("background-color:rgb(204, 242, 255);")
+                elif self.numlist[k] == 3:
+                    self.pushButton_3.setStyleSheet("background-color: #0067a3")
+                    QtTest.QTest.qWait(breaktime)
+                    self.pushButton_3.setStyleSheet("background-color:rgb(204, 242, 255);")
+                elif self.numlist[k] == 4:
+                    self.pushButton_4.setStyleSheet("background-color: #0067a3")
+                    QtTest.QTest.qWait(breaktime)
+                    self.pushButton_4.setStyleSheet("background-color:rgb(204, 242, 255);")
 
     def countingnum(self, key):
         print(key)
@@ -122,11 +131,12 @@ class Ui_Dialog(object):
                 self.numlist_user.clear()
                 self.counting = 0
                 self.roundcnt += 1
+                self.playGame()
             else:
                 pass
         else:
             self.realBreak = False
-        self.playGame()
+            self.playGame()
 
 
 if __name__ == "__main__":
