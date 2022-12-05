@@ -1,7 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import intf_test
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
+    def setupUi(self, Dialog, levelnum):
         Dialog.setObjectName("Dialog")
         Dialog.resize(960, 743)
         font = QtGui.QFont()
@@ -33,7 +34,7 @@ class Ui_Dialog(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
 
-        self.lineEdit = QtWidgets.QLineEdit(Dialog) # display Level 
+        self.lineEdit = QtWidgets.QLineEdit(Dialog) # display Level
         self.lineEdit.setGeometry(QtCore.QRect(510, 350, 113, 41))
         font = QtGui.QFont()
         font.setFamily("한컴 말랑말랑 Bold")
@@ -41,7 +42,7 @@ class Ui_Dialog(object):
         font.setBold(True)
         font.setWeight(75)
         self.lineEdit.setFont(font)
-        self.lineEdit.setText("")
+        self.lineEdit.setText(str(levelnum))
         self.lineEdit.setReadOnly(True)
         self.lineEdit.setObjectName("lineEdit")
 
@@ -55,6 +56,7 @@ class Ui_Dialog(object):
         self.pushButton.setFont(font)
         self.pushButton.setStyleSheet("background-color:rgb(230, 230, 255)")
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(lambda:self.restart(Dialog))
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -66,13 +68,21 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "Your Level:"))
         self.pushButton.setText(_translate("Dialog", "다시 시작"))
 
+    def restart(self, Dialog):
+        Dialog.hide()
+        Dialog2 = QtWidgets.QDialog()
+        ui = intf_test.Ui_Dialog()
+        ui.setupUi(Dialog2)
+        Dialog2.show()
+        Dialog2.exec()
+
+
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
-    ui.setupUi(Dialog)
+    ui.setupUi(Dialog, 0)
     Dialog.show()
     sys.exit(app.exec_())
-
