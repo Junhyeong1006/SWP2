@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import intf_test
+import startintf
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog, levelnum):
